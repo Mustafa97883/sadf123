@@ -22,7 +22,7 @@ dbl.hasVoted(message.author.id).then(voted => {
     .setDescription(`**Bota Oy Vermek için** [TIKLA](https://top.gg/bot/756883309270663229/vote)
   **Bota yorum atıp 5 yıldız vermeyi unutma :)** [TIKLA](https://top.gg/bot/756883309270663229)
   **Strom Müzik botunu eklemek için [TIKLA](https://discord.com/api/oauth2/authorize?client_id=854122011151826975&permissions=8&scope=bot%20applications.commands)
-  **Botunu 7/24 yap** [Uptime](https://discord.gg/fr43SS2n64)
+  **Botunu 7/24 yap** [Uptime](https://discord.gg/48NHnVYpNJ)
   
   <a:rainbow:855248569136578570> **tag** \`Destek sunucusunun tagını gösterir.\`\n
   <a:rainbow:855248569136578570> **s!moderasyon-sistemi**  \`Moderasyon komutlarını gösterir.\` \n
