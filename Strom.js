@@ -1176,19 +1176,6 @@ if(data && data === role.id) require('quick.db').delete(`strom-mute-role.${role.
 ///mute son
 
 
-///boost
-
-const logs = require('discord-logs');
-logs(client);
-
-client.on('guildMemberBoost', (member) => {// 
-let kanal = client.channels.cache.get('864544996337123348');
-kanal.send(`${member.user.tag} kullanıcısı ${member.guild.name} sunucusuna boost bastı!`);
-member.send(`${member.guild.name} sunucusuna boost bastığın için teşekkürler!`);
-});//
-
-///boost son
-
 
 ///bot yönetici yetkisi alma
 
@@ -1677,5 +1664,4 @@ client.channels.cache.get(modlog).send(embed)
 
 })
 // mod log son ///
-
 
