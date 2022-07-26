@@ -18,27 +18,19 @@ dbl.hasVoted(message.author.id).then(voted => {
       client.user.displayAvatarURL({ dynamic: true })
     )
     .setColor("#d02090")
-    .setTitle(` **Strom Bot Yardım Menüsüne Hoşgeldiniz** `)
+    .setTitle(` **Strom Bot Kayıt Menüsüne Hoşgeldiniz** `)
     .setDescription(`**Bota Oy Vermek için** [TIKLA](https://top.gg/bot/756883309270663229/vote)
   **Bota yorum atıp 5 yıldız vermeyi unutma :)** [TIKLA](https://top.gg/bot/756883309270663229)
   **Strom Müzik botunu eklemek için [TIKLA](https://discord.com/api/oauth2/authorize?client_id=854122011151826975&permissions=8&scope=bot%20applications.commands)
-  **Botunu 7/24 yap** [Uptime](https://discord.gg/48NHnVYpNJ)
   
-  <a:rainbow:855248569136578570> **tag** \`Destek sunucusunun tagını gösterir.\`\n
-  <a:rainbow:855248569136578570> **s!moderasyon-sistemi**  \`Moderasyon komutlarını gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!kayıt-yardım**  \`kayıt komutlarını gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!guard-sistemi**  \`Koruma Komutlarını Gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!kasa-yardım**  \`kasa Komutlarını Gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!say**  \`Sunucu Bilgilerini Gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!yardım-sunucu-kur**\`Sunucu-kur komutlarını gösterir.\`\n
-  <a:rainbow:855248569136578570> **s!rütbe-yardım**\`rütbe sistemini gösterir. \`\n
-  <a:rainbow:855248569136578570> **s!eğlence-yardım**\`Eğlence komutlarını gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!jail-yardım**\`jail.\` \n
-  <a:rainbow:855248569136578570> **s!kullanıcı-yardım**\`kullanıcı komutlarını gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!nsfw-anime**\`+18 komutları gösterir.\` \n (anime)
-  <a:rainbow:855248569136578570> **s!nsfw**\`+18 komutları gösterir.\` \n
-  <a:rainbow:855248569136578570> **s!komut-güncelleme\`komutlarınızı v11tov12, v12tov13.\` \n
-  <a:rainbow:855248569136578570> s!çekiliş-sistemi\`çekiliş komutlarını gösterir.\` \n
+  <a:rainbow:855248569136578570> **s!erkek-rol**  \`erkek rolünü ayarlar.\` \n
+  <a:rainbow:855248569136578570> **s!kız-rol**  \`kız rolünü ayarlar.\` \n
+  <a:rainbow:855248569136578570> **s!alınacak-rol**  \`Kayıt Olunca Alınacak Rolü Ayarlar örn: Kayıtsız üye.\`\n
+  <a:rainbow:855248569136578570> **s!kayıt-kanal**  \`Kayıt kanalı ayarlarsınız.\` \n
+  <a:rainbow:855248569136578570> **s!kayıt-rol**  \`Kayıt görevlisini ayarlar.\` \n
+  <a:rainbow:855248569136578570> **s!kayıt-ver**\`Kayıt yetkisi verir.\`\n
+  <a:rainbow:855248569136578570> **s!erkek**\`erkek olarak kayıt eder. \`\n
+  <a:rainbow:855248569136578570> **s!kız**\`kız olarak kayıt eder.\` \n
 `
     
     
@@ -62,12 +54,12 @@ dbl.hasVoted(message.author.id).then(voted => {
   exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["yardım","yardim"],
+  aliases: ["kayıtyardım","kayıt-yardım"],
   permLevel: 0
 };
 
 exports.help = {
-  name: "yardım",
+  name: "kayıt-yardım",
   description: "a!davet-sistemi Menüsü",
-  usage: "yardım"
+  usage: "kayıt-yardım"
 };
