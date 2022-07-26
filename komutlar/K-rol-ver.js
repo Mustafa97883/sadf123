@@ -5,15 +5,15 @@ exports.run = async(client, message, args) => {
 
 let kayıtçı = db.fetch(`kayıtçırol_${message.guild.id}`)
 let member = message.mentions.members.first();
-if (!kayıtçı) return message.channel.send(`Kayıtçı Rolü Ayarlanmadığı İçin Bu Komudu Kullanamazsınız ! `)
-if (!member) return message.channel.send(`Kayıtçı Rolü Vereceğiniz Kullanıcıyı Belirtiniz ! `)
+if (!kayıtçı) return message.channel.send(`Kayıt Rolü Ayarlanmadığı İçin Bu Komudu Kullanamazsınız ! `)
+if (!member) return message.channel.send(`Kayıt Rolü Vereceğiniz Kullanıcıyı Belirtiniz ! `)
 
 member.roles.add(kayıtçı) 
 const ayarlandı = new discord.MessageEmbed()
 .setAuthor(client.user.username, client.user.avatarURL)  
-.setTitle(`${client.user.username} - Kayıtçı Rolü Verildi `)
+.setTitle(`${client.user.username} - Kayıt Rolü Verildi `)
 .setColor('BLACK')
-.setDescription(`${member} Adlı Kullanıcıya Kayıtçı Rolü Verildi ! `)
+.setDescription(`${member} Adlı Kullanıcıya Kayıt Rolü Verildi ! `)
 .setThumbnail(client.user.avatarURL)
 .setFooter(`Komut ${message.author.tag} Tarafından Kullanıldı ! `)
 message.channel.send(ayarlandı)
@@ -22,11 +22,11 @@ message.channel.send(ayarlandı)
 exports.conf = {
   enabled: true,
   guildonly: false,
-  aliases: ['kayıtçıver'],
+  aliases: ['kayıtver'],
   permlevel: 0
 }
 exports.help = {
-  name: 'kayıtçı-ver',
-  description: 'kayıtçı rolü verir',
-  usage: '!kayıtçı-ver @kullanıcı'
+  name: 'kayıt-ver',
+  description: 'Kayıt rolü verir',
+  usage: '!kayıt-ver @kullanıcı'
 }
