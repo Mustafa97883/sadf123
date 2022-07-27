@@ -4,9 +4,7 @@ const os = require("os");
 require("moment-duration-format");
 exports.run = async (client, message, args) => {
   const DBL = require('dblapi.js')
-const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc1Njg4MzMwOTI3MDY2MzIyOSIsImJvdCI6dHJ1ZSwiaWF0IjoxNjU2MTEwOTkxfQ.7Oqg1lelprL5ACm4Yh0RKREKaOTPIyQRrSjDaT7uKko', client)
-dbl.hasVoted(message.author.id).then(voted => {
-      if(voted) {
+
   const seksizaman = moment
     .duration(client.uptime)
     .format(" D [gün], H [saat], m [dakika], s [saniye]");
@@ -30,13 +28,9 @@ dbl.hasVoted(message.author.id).then(voted => {
     .addField("» **İşletim Sistemi**", `\`\`${os.platform()}\`\``, true)
     .addField("**» Bot Davet**"," [Davet Et](https://discord.com/oauth2/authorize?client_id=756883309270663229&permissions=8&scope=bot" + client.user.id + "&scope=bot&permissions=8)");
   return message.channel.send(istatistikler);
-} else {
-        message.channel.send(` Bu Komutu Sadece 12 Saatte Bir Oyvererek Kullanabilirsiniz Oyvermek İçin (https://top.gg/bot/756883309270663229/vote) linke Tıklayarak Oyverebilirsiniz. Oy Verdiyseniz 5 Dakka Bekleyiniz`) 
-              
-}
-        })
+
       
-      },
+      }
 
 exports.conf = {
   enabled: true,
