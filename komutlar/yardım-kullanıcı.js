@@ -28,6 +28,7 @@ dbl.hasVoted(message.author.id).then(voted => {
 <a:rainbow:855248569136578570> ${prefix}öneri \: Bot için öneride bulunursunuz..\`\n
 <a:rainbow:855248569136578570> ${prefix}şikayet \: Bot için şikayette bulunursunuz.\`\n
 <a:rainbow:855248569136578570> ${prefix}afk \: afk olurusnuz.\`\n
+<a:rainbow:855248569136578570> ${prefix}yapımcılar \: yapımcıları gösterir.\`\n
 `
     
     

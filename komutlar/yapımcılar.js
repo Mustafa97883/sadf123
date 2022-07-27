@@ -4,11 +4,12 @@ module.exports.run = async (client, message) => {
   
   const embed = new Discord.MessageEmbed()
     .setColor("BLUE")
-    .addField(`Yapımcım`, `
+    .addField(`Yapımcılar`, `
 ✧ 《 Shadow Oracle zed》#6427
 
-✧ ShAdOw#6666
+'LORD_?'_#6666
 
+Berkayy#0010
 
 `)
     .addField(`Destek Sunucusu`, `[TIKLA](https://discord.gg/fr43SS2n64)`)
