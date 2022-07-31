@@ -662,6 +662,8 @@ client.on("message", msg => {
       ".me",
       ".gg",
       "www.",
+      "https",
+      "http",
       ".gl",
       ".org",
       ".com.tr",
