@@ -24,13 +24,13 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['çekiliş-sistemi'],
+  aliases: [''],
   kategori: "Bot",
   permLevel: 0
 };
 
 exports.help = {
-  name: 'çekilişsistemi',
+  name: 'dolar',
   description: 'Bot ile ilgili bilgi verir.',
   usage: 'bilgi'
 };
