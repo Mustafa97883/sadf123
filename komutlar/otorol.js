@@ -1,42 +1,31 @@
-const Discord = require("discord.js");
-const db = require("quick.db");
+const Discord = require('discord.js');
+const db = require('quick.db')
+exports.run = async (client, message, args) => { 
 const ayarlar = require("../ayarlar.json");
-let prefix = ayarlar.prefix;
+let prefix = await db.fetch(`prefix.${message.guild.id}`) || ayarlar.prefix     
+let rol = message.mentions.roles.first() 
+let kanal = message.mentions.channels.first()
+if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(` **Bu komutu kullanabilmek için** "\`Yönetici\`" **yetkisine sahip olmalısın.**`);
+ 
+ if(!rol) return message.channel.send(` Bir rol etiketlemelisin.\nÖrnek kullanım: ${prefix}otorol-ayarla @rol #kanal`)
+ 
+ if(!kanal) return message.channel.send(` Bir kanal etiketlemelisin.\nÖrnek kullanım: ${prefix}otorol-ayarla @rol #kanal`)
+ 
+  message.channel.send(` Otorol başarıyla aktif edildi. Otorol rolü **${rol}** olarak ayarlandı. Otorol kanalı **${kanal}** olarak ayarlandı.`)
 
-exports.run = (client, message, args) => {
-  const embed = new Discord.MessageEmbed()
-    .setAuthor("Strom | OtoRol", client.user.avatarURL())
-    .setColor("#00ff00")
-    .addField(
-      "__OTOROL Ayarlamak__",
-      "__**Oto-Rol-Ayarla**__ 💡 **Otorolü Ayarlar.**\n Örnek: `s!oto-rol-ayarla @rolünüz #logkanalı` \n \n __**s!otorol-msg**__ <:sag:822547800481988628>  **Otorol Mesajını Ayarlar.** \n Örnek: `s!otorol-msg -server-, Sunucumuza Hoşgeldin, -uye-! -rol- Adlı Rolün Başarı İle Verildi Seninle Beraber, **-uyesayisi-** Kişiyiz`"
-    )
-
-    .addField(
-      "__**Kullanabileceğiniz Değişkenler**__",
-      `
-**-uye-** 💡 \`Üyeyi Etiketler.\`
-**-rol-** 💡 \`Rolün İsmini Ekler.\`
-**-server-** 💡 \`Server İsmini Yazar.\`
-**-uyesayisi-** 💡> \`Üye Sayısını Atar.\`
-**-botsayisi-** 💡 \`Bot Sayısını Atar.\`
-**-kanalsayisi-** 💡 \`Kanal Sayısını Atar.\`
-**-bolge-** 💡 \`Sunucu Bölgesinin İsmini Atar.\`
-**-kalanuye-** 💡 \`Hedefe Kaç Kişi Kalmış Gösterir.\`
-**-hedefuye-** 💡 \`Hedef Rakamı Gösterir.\`
-`
-    )
-  message.channel.send(embed);
+ 
+  db.set(`otoRL_${message.guild.id}`, rol.id)  
+  db.set(`otoRK_${message.guild.id}`, kanal.id) 
 };
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: 0
-};
-
-exports.help = {
-  name: "otorol",
-  description: "sayaç",
-  usage: "sayaç"
-};
+    enabled: true,
+    guildOnly: false,
+    permLevel: 0,
+    aliases: ['otorol-ayarla']
+  };
+  
+  exports.help = {
+    name: 'otorol-ayarla',
+    description: 'Türkiyenin Saatini Gösterir',
+    usage: 'gç'
+  };

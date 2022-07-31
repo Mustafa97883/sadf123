@@ -1,50 +1,36 @@
-const Discord = require("discord.js");
+const AsreaperDiscord = require('discord.js');
+const AsreaperClient = new AsreaperDiscord.Client();
+const ayarlar = require('../ayarlar.json');
+let prefix = ayarlar.prefix
 
-exports.run = async (client, message) => {
-  let prefix = process.env.prefix;
+exports.run = (client, message) => {
+ const AsreaperEmbed = new AsreaperDiscord.MessageEmbed()
+ .setAuthor(`${client.user.username} Strom | çekiliş menüsü`)
+ .setColor("RED")
+.addFields({
+                name: '**s!çekiliş**',
+                  value: "Çekiliş başlatır",
+                inline: true
+              
+              
+     
 
-  const embedgenel = new Discord.MessageEmbed()
-    .setAuthor(`Strom | Çekiliş `)
-    .setTitle(``)
-    .setColor("#00ff00")
-    .setThumbnail(
-      "https://cdn.discordapp.com/attachments/823592301796392960/826048182990667806/standard_2.gif"
-    )
-    .setDescription(
-      `🎁 Gweep Creative Botumuzu Eklemek İçin \`${prefix}davet\` yazabilirsiniz.`
-    )
-    .addField(
-      `__Başlat__`,
-      `🎉  \`${prefix}başlat\` Sunucudan Bir Çekiliş Başlatabilirsin.`,
-      true
-    )
-   .addField(
-      `__Yenile__`,
-      `🎉  \`${prefix}reroll\` Çekilişi Yeniden Çeker.`,
-      true
-    )
-    .addField(
-      `__Sonlandır__`,
-      `🎊 \`${prefix}sonlandır\` Çekilişi Bitir.`,
-      true
-    )
-   
-    .addField(
-      `__Bilgilendirme__`,
-      `<a:yesil:822529538663514173>  \`${prefix}davet\` | Botu Sununuya Davet Edersiniz\n <a:yesil:822529538663514173> \`${prefix}botbilgi\` | Botun İstatistiklerini Görürsünüz \n <a:yesil:822529538663514173> \`${prefix}yapımcılar\` | yapımcı Bilgileri.`
-    );
-  return message.channel.send(embedgenel);
-};
-
+              }) 
+  .setFooter(`*                                                               ${client.user.username} | © 2022                                                                      *`)
+ .setImage()
+ 
+ message.channel.send(AsreaperEmbed)
+}
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['çekiliş-sistemi'],
+  kategori: "Bot",
   permLevel: 0
 };
 
 exports.help = {
-  name: "çekiliş",
-  description: "Çekiliş Menüsü",
-  usage: "çekiliş"
+  name: 'çekilişsistemi',
+  description: 'Bot ile ilgili bilgi verir.',
+  usage: 'bilgi'
 };

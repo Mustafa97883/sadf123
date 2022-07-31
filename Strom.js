@@ -306,7 +306,7 @@ const küfür = [
 		"skm",
 		"sg",
    "Amk", "mk", "amk", "aq", "orospu", "oruspu", "oç", "sikerim", "yarrak", "piç", "amq", "sik", "amcık", "çocu", "sex", "seks", "amına", "orospu çocuğu", "sg", "siktir git","A M K","A m K","a M K","a m k","porno","p o r n o","ororspu çocugu","orusbu","orusbu çocuğu","orosbu cocu","orospu cocu","orosbuçoocu","anancı","anneni sikeyim","ananı sikeyim","annen piç","anai sikeyim","ananı sikeyim","ananı skm","anneni skm","anneni sikm","siqerim","siqerim seni","siqim","siqim seni","skEİRM","yarak","ospu","ospu çocuğu","ospu çocu","sikik","oç","orospu","orospu çocuğu","öröspü çöcüğü","Oç","oÇ","OÇ","sikerim","kafasız","porno","pörnö","pornocu","31","31.",
-"31 çeken","amcık","am çorbası","amcık çorbası","tam sikmelik","sikiş","sikmek","sik çorbası","sik suyu","am suyu","amcık suyu","yarrak","amcık hoşafı","AMCIK HOŞAFI","Amcık Hoşafı",
+"31 çeken","am","amcık","am çorbası","amcık çorbası","tam sikmelik","sikiş","sikmek","sik çorbası","sik suyu","am suyu","amcık suyu","yarrak","amcık hoşafı","AMCIK HOŞAFI","Amcık Hoşafı",
 "yarrak kafalı","soğan sikli","siki başı sik","yarrağı kara","kara sikli","kara yarraklı","tam oç","tam öç","tem oç","tem öç","öç","yarrak kokusu",
 "sik kokusu","ananı sikim","ananı sikiyim","anneni sikim","anneni sikiyim","ablanı sikim","ablanı sikiyim","gacını sikiyim","karını sikiyim",
 "babanı sikiyim","aileni sikime oturturayım","muz istermisin","yarrağım","sikim","sik","nah","taşşak","taşak","yarak","yalak","kafasını siktiğim",
@@ -321,7 +321,7 @@ client.on("messageUpdate", async (old, nev) => {
       
       if (küfür.some(word => nev.content.includes(word))) {
       if (nev.member.hasPermission("BAN_MEMBERS")) return ;
-      if (ayarlar.gelistiriciler.includes(nev.author.id)) return ;
+       //if (ayarlar.gelistiriciler.includes(nev.author.id)) return ;
  const embed = new Strom.MessageEmbed() .setColor(0x36393F) .setDescription(` ${nev.author} , **Mesajını editleyerek küfür etmeye çalıştı!**`)
             .addField("Mesajı:",nev)
         
@@ -675,7 +675,6 @@ client.on("message", msg => {
       ".tv",
       "discord.gg",
       "youtube.com"
-    
     ];
     if (reklam.some(word => msg.content.includes(word))) {
       try {
@@ -1792,45 +1791,3 @@ client.on("message", async (msg) => {
 })  
 
 //panel son
-
-
-//OtoRol Baş
-
-client.on("guildMemberAdd", async member => {
-  let kanal = await db.fetch(`otoRK_${member.guild.id}`);
-  let rol = await db.fetch(`otoRL_${member.guild.id}`);
-  let mesaj = db.fetch(`otoRM_${member.guild.id}`);
-  if (!rol) return;
-
-  if (!mesaj) {
-    client.channels.cache
-      .get(kanal)
-      .send(
-        ":loudspeaker: :inbox_tray: Otomatik Rol Verildi Seninle Beraber `" +
-          member.guild.memberCount +
-          "` Kişiyiz! Hoşgeldin! `" +
-          member.user.username +
-          "`"
-      );
-    return member.roles.add(rol);
-  }
-
-  if (mesaj) {
-    var mesajs = mesaj
-      .replace("-uye-", `${member.user}`)
-      .replace("-uyetag-", `${member.user.tag}`)
-      .replace("-rol-", `${member.guild.roles.cache.get(rol).name}`)
-      .replace("-server-", `${member.guild.name}`)
-      .replace("-uyesayisi-", `${member.guild.memberCount}`)
-      .replace(
-        "-botsayisi-",
-        `${member.guild.members.cache.filter(m => m.user.bot).size}`
-      )
-      .replace("-bolge-", `${member.guild.region}`)
-      .replace("-kanalsayisi-", `${member.guild.channels.size}`);
-    member.roles.add(rol);
-    return client.channels.cache.get(kanal).send(mesajs);
-  }
-});
-
-//OtORol Son

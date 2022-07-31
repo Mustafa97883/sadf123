@@ -1,72 +1,91 @@
 const ms = require('ms');
-
+const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
 
-    if(!message.member.hasPermission('MANAGE_MESSAGES')){
-        return message.channel.send(':x: Bu Komutu Kullanmak İçin "Mesajları Yönet" Yetkisine Sahip Olman Gerekiyor.');
+    // If the member doesn't have enough permissions
+    if(!message.member.hasPermission('MANAGE_MESSAGES') && !message.member.roles.cache.some((r) => r.name === "Giveaways")){
+        return message.channel.send(' Çekiliş başlatman için yeterli yetkin yok! gereken yetki; `Mesajları Yönet`.');
     }
 
+    // Giveaway channel
     let giveawayChannel = message.mentions.channels.first();
+    // If no channel is mentionned
     if(!giveawayChannel){
-        return message.channel.send(':x: Lütfen Bir Kanal Etiketle!').then(m => m.delete({timeout: 5000, reason:"It had to be done"}));
-                message.delete({timeout: 6000, reason:"It had to be done"});
+        return message.channel.send(' Kanal seç!');
     }
 
+    // Giveaway duration
     let giveawayDuration = args[1];
+    // If the duration isn't valid
     if(!giveawayDuration || isNaN(ms(giveawayDuration))){
-        return message.channel.send(':x: Geçerli bir süre belirtmeniz gerekiyor!').then(m => m.delete({timeout: 5000, reason:"It had to be done"}));
-                message.delete({timeout: 6000, reason:"It had to be done"});
+        return message.channel.send(' Süre belirt!');
     }
 
+    // Number of winners
     let giveawayNumberWinners = args[2];
-    if(isNaN(giveawayNumberWinners) || (parseInt(giveawayNumberWinners) <= 0)){
-        return message.channel.send(':x: Geçerli bir kazanan sayısı belirtmeniz gerekiyor!').then(m => m.delete({timeout: 5000, reason:"It had to be done"}));
-                message.delete({timeout: 6000, reason:"It had to be done"});
+    // If the specified number of winners is not a number
+    if(isNaN(giveawayNumberWinners)){
+        return message.channel.send(' Kaç kişi kazanıcak?');
     }
+  
+  if(giveawayNumberWinners > 20){
+    return message.channel.send(" Çekiliş kazanan sayısı 20'den üstün olamaz!")
+  }
+     let giveaway = 
+    // Search with giveaway prize
+    client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) ||
+    // Search with giveaway ID
+    client.giveawaysManager.giveaways.find((g) => g.messageID === args[0]);
+  
 
+    // Giveaway prize
     let giveawayPrize = args.slice(3).join(' ');
+    // If no prize is specified
     if(!giveawayPrize){
-        return message.channel.send(':x: Geçerli bir ödül belirtmelisiniz!').then(m => m.delete({timeout: 5000, reason:"It had to be done"}));
-                message.delete({timeout: 6000, reason:"It had to be done"});
+        return message.channel.send(' Ödülü ne olucak?');
     }
 
-    client.giveawaysManager.start(giveawayChannel, {
-        time: ms(giveawayDuration),
-        prize: giveawayPrize,
-        winnerCount: giveawayNumberWinners,
-        hostedBy: process.env.hostedBy ? message.author : null,
-        messages: {
-            giveaway: (process.env.everyoneMention ? "@everyone\n\n" : "")+"🎉🎉 **ÇEKİLİŞ** 🎉🎉",
-            giveawayEnded: (process.env.everyoneMention ? "@everyone\n\n" : "")+"🎉🎉 **ÇEKİLİŞ SONA ERDİ** 🎉🎉",
-            timeRemaining: "Kalan süre: **{duration}**!",
-            inviteToParticipate: "Katılmak için 🎉 tepkisine tıklayın!",
-            winMessage: "Tebrikler, {winners}! **{prize}** Ödülünü Kazandın!",
-            embedFooter: "Çekiliş",
-            noWinner: "Giveaway iptal edildi, geçerli katılım yok.",
-            hostedBy: "Çekilişi Yapan: {user}",
-            winners: "Kazanan",
-            endedAt: "Sona Erdi",
-            units: {
-                seconds: "saniye",
-                minutes: "dakika",
-                hours: "saat",
-                days: "gün",
-                pluralS: false
-            }
-        }
-    });
+ client.giveawaysManager.start(giveawayChannel, {
+      time: ms(giveawayDuration),
+			prize: giveawayPrize,
+			winnerCount: giveawayNumberWinners,
+			hostedBy: message.author,
+			messages: {
+				giveaway:"🎉🎉 **Çekiliş başladı.** 🎉🎉",
+				giveawayEnded: "🎉🎉 **Çekiliş bitti.** 🎉🎉",
+				timeRemaining: "Kalan süre: **{duration}**!",
+				inviteToParticipate: "Çekilişe katılmak için 🎉 emojisine tıklayın!",
+				winMessage: ` Tebrikler {winners}!, **{prize}** adlı çekilişi kazandın!`,
+				embedFooter: "Çekiliş",
+				noWinner: " Çekiliş iptal edildi. Yeterli katılım yok.",
+				hostedBy: "{user} tarafından",
+				winners: "kazanan",
+				endedAt: "Bittiği zaman",
+				units: {
+					seconds: "saniye",
+					minutes: "dakika",
+					hours: "saat",
+					days: "gün",
+					pluralS: true // Not needed, because units end with a S so it will automatically removed if the unit value is lower than 2
+				}
+			}//////////////////////////////////////////
+		});/////////////////////////////////////////////////////////////////////
 
-    message.channel.send(`Çekiliş ${giveawayChannel} Kanalında Başlatıldı!`).then(m => m.delete({timeout: 5000, reason:"It had to be done"}));
-                message.delete({timeout: 6000, reason:"It had to be done"});
+    message.channel.send(new Discord.MessageEmbed().addField("Başarılı", ` Çekiliş ${giveawayChannel} adlı kanalda başlatıldı!`).setColor("RANDOM"));
+  /////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 };
 
 exports.conf = {
-  aliases: ['start','çekiliş'],
-  permLevel: 0,
-};
+	enabled: true,
+	guildOnly: false,
+	aliases: [],
+	permLevel: 0
+}
+
 exports.help = {
-  name: 'başlat',
-   description: 'Çekilişi Başlatır.',
-  usage: 'başlat #kanal <Süre> <Kazanacak Kişi Sayısı> <Ödül Adı>'
-};
+	name: 'çekiliş',
+	description: 'Bota istediğiniz bir şeyi yazdırırsınız.',
+	usage: 'çekiliş'
+}
