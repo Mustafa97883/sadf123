@@ -647,95 +647,54 @@ AFK modundan ayrıldın <@${kullanıcı.id}>.`)
 
 
 
-//Reklam Engel Baş
+///reklam engel
 
-const reklam = [
-  ".com",
-  ".net",
-  ".xyz",
-  ".tk",
-  ".pw",
-  ".io",
-  ".me",
-  ".gg",
-  "www.",
-  "https",
-  "http",
-  ".gl",
-  ".org",
-  ".com.tr",
-  ".biz",
-  "net",
-  ".rf",
-  ".gd",
-  ".az",
-  ".party",
-  ".gf",
-  ".31"
-];
-client.on("messageUpdate", async (old, nev) => {
-  if (old.content != nev.content) {
-    let i = await db.fetch(`reklam.${nev.member.guild.id}.durum`);
-    let y = await db.fetch(`reklam.${nev.member.guild.id}.kanal`);
-    if (i) {
-      if (reklam.some(word => nev.content.includes(word))) {
-        if (nev.member.hasPermission("BAN_MEMBERS")) return;
-        //if (ayarlar.gelistiriciler.includes(nev.author.id)) return ;
-        const embed = new Strom.MessageEmbed()
-          .setColor("#00ff00")
-          .setDescription(
-            ` ${nev.author} , **Mesajını editleyerek reklam yapmaya çalıştı!**`
-          )
-          .addField("Mesajı:", nev);
-
-        nev.delete();
-        const embeds = new Strom.MessageEmbed()
-          .setColor("#00ff00")
-          .setDescription(
-            ` ${nev.author} , **Mesajı editleyerek reklam yapamana izin veremem!**`
-          );
-        client.channels.cache.get(y).send(embed);
-        nev.channel.send(embeds).then(msg => msg.delete({ timeout: 5000 }));
-      }
-    } else {
-    }
-    if (!i) return;
-  }
-});
-
-client.on("message", async msg => {
-  if (msg.author.bot) return;
-  if (msg.channel.type === "dm") return;
-  let y = await db.fetch(`reklam.${msg.member.guild.id}.kanal`);
-
-  let i = await db.fetch(`reklam.${msg.member.guild.id}.durum`);
-  if (i) {
-    if (reklam.some(word => msg.content.toLowerCase().includes(word))) {
+client.on("message", msg => {
+  const veri = db.fetch(`${msg.guild.id}.reklam`);
+  if (veri) {
+    const reklam = [
+      ".com",
+      ".net",
+      ".xyz",
+      ".tk",
+      ".pw",
+      ".io",
+      ".me",
+      ".gg",
+      "www.",
+      "https",
+      "http",
+      ".gl",
+      ".org",
+      ".com.tr",
+      ".biz",
+      "net",
+      ".rf.gd",
+      ".az",
+      ".party",
+      ".tv",
+      "discord.gg",
+      "youtube.com"
+    
+    ];
+    if (reklam.some(word => msg.content.includes(word))) {
       try {
-        if (!msg.member.hasPermission("MANAGE_GUILD")) {
-          //  if (!ayarlar.gelistiriciler.includes(msg.author.id)) return ;
-          msg.delete({ timeout: 750 });
-          const embeds = new Strom.MessageEmbed()
-            .setColor("#00ff00")
-            .setDescription(
-              ` <@${msg.author.id}> , **Bu sunucuda reklam yapmak yasak!**`
-            );
-          msg.channel.send(embeds).then(msg => msg.delete({ timeout: 5000 }));
-          const embed = new Strom.MessageEmbed()
-            .setColor("#00ff00")
-            .setDescription(` ${msg.author} , **Reklam yapmaya çalıştı!**`)
-            .addField("Mesajı:", msg);
-          client.channels.cache.get(y).send(embed);
+        if (!msg.member.permissions.has("BAN_MEMBERS")) {
+          msg.delete();
+          return msg
+            .reply("**HOPP BİLADER? Reklam yasak bidaha olmasın :))**.")
+            .then(wiskyx => wiskyx.delete({ timeout: 5000 }));
         }
       } catch (err) {
         console.log(err);
       }
     }
   }
-  if (!i) return;
+  if (!veri) return;
 });
 
-//Reklam Engel Son
+//REKLAM ENGEL
+
 ///son
 
 
@@ -1833,3 +1792,45 @@ client.on("message", async (msg) => {
 })  
 
 //panel son
+
+
+//OtoRol Baş
+
+client.on("guildMemberAdd", async member => {
+  let kanal = await db.fetch(`otoRK_${member.guild.id}`);
+  let rol = await db.fetch(`otoRL_${member.guild.id}`);
+  let mesaj = db.fetch(`otoRM_${member.guild.id}`);
+  if (!rol) return;
+
+  if (!mesaj) {
+    client.channels.cache
+      .get(kanal)
+      .send(
+        ":loudspeaker: :inbox_tray: Otomatik Rol Verildi Seninle Beraber `" +
+          member.guild.memberCount +
+          "` Kişiyiz! Hoşgeldin! `" +
+          member.user.username +
+          "`"
+      );
+    return member.roles.add(rol);
+  }
+
+  if (mesaj) {
+    var mesajs = mesaj
+      .replace("-uye-", `${member.user}`)
+      .replace("-uyetag-", `${member.user.tag}`)
+      .replace("-rol-", `${member.guild.roles.cache.get(rol).name}`)
+      .replace("-server-", `${member.guild.name}`)
+      .replace("-uyesayisi-", `${member.guild.memberCount}`)
+      .replace(
+        "-botsayisi-",
+        `${member.guild.members.cache.filter(m => m.user.bot).size}`
+      )
+      .replace("-bolge-", `${member.guild.region}`)
+      .replace("-kanalsayisi-", `${member.guild.channels.size}`);
+    member.roles.add(rol);
+    return client.channels.cache.get(kanal).send(mesajs);
+  }
+});
+
+//OtORol Son
