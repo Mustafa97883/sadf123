@@ -1791,3 +1791,44 @@ client.on("message", async (msg) => {
 })  
 
 //panel son
+
+
+//test
+
+client.on("guildCreate", async leinacode => {
+  const kanal = new Strom.WebhookClient(
+   "1003374498160066680",
+    "1003374498160066680"
+  );
+  let Strom = new Strom.MessageEmbed()
+    .setColor("GREEN")
+    .setTitle("**Bot Eklendi!**")
+    .addField("Sunucu Adı:", leinacode.name)
+    .addField("Sunucu İD:", leinacode.id)
+    .addField("Sunucu sahibi", leinacode.owner)
+    .addField("Sunucu Sahibi'nin ID'si", leinacode.ownerID)
+    .addField("Sunucunun Kurulu Olduğu Bölge:", leinacode.region)
+    .addField("Sunucudaki Kişi Sayısı:", leinacode.memberCount)
+  .setTimestamp()
+  kanal.send(leinacode);
+});
+client.on("guildDelete", async leinacode => {
+  const kanal = new Strom.WebhookClient(
+    "1003374498160066680",
+    "1003374498160066680"
+  );
+  let Strom = new Strom.MessageEmbed()
+    .setColor("RED")
+    .setTitle("**Bot Atıldı!**")
+    .addField("Sunucu Adı:", leinacode.name)
+    .addField("Sunucu İD:", leinacode.id)
+    .addField("Sunucu sahibi", leinacode.owner)
+    .addField("Sunucu Sahibi'nin ID'si", leinacode.ownerID)
+    .addField("Sunucunun Kurulu Olduğu Bölge:", leinacode.region)
+    .addField("Sunucudaki Kişi Sayısı:", leinacode.memberCount)
+  .setTimestamp()
+  kanal.send(leinacode);
+});
+
+
+//test son
