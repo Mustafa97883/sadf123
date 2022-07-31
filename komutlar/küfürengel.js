@@ -6,7 +6,7 @@ exports.run = (client, message) => {
   const member3 = new Discord.MessageEmbed()
      .setColor(0x36393F)
 .setDescription(`**HATA**  - Bu sunucuda yetkili değilsin.`)
-        if (!message.member.permissions.has("MANAGE_MESSAGES")) return message.channel.send(member3)
+        if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(member3)
       if(küfür) {
       db.delete(`küfür.${message.guild.id}`)
       message.channel.send(` **Başarılı ile küfür engel kapandı.**`).then(l => {
